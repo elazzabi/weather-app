@@ -1,19 +1,24 @@
 (function () {
-	// Get Geolocation from browser
-	window.navigator.geolocation.getCurrentPosition(success, error);
+	// Get user IP
+	var getIp = new XMLHttpRequest();
+	getIp.open('GET', 'http://ipinfo.io/json',true);
+	getIp.onload = success;
+	getIp.onerror = error;
+	getIp.send();
 
 	function error() {
-		alert('It seems that access to your location is blocked. Please allow this page to access to your position and refresh the page!');
+		alert('Can not get your ip address');
 	}
 
 	function success(position) {
 		var request = new XMLHttpRequest();
 
 		// url to get data from the free API
+		var location = JSON.parse(getIp.responseText).loc.split(',');
 		var url = 'http://api.openweathermap.org/data/2.5/weather?lat=' +
-							position.coords.latitude +
+							location[0] +
 							'&lon=' +
-							position.coords.longitude +
+							location[1] +
 							'&APPID=79565f7203b09794f3f049346c2cb9d4';
 
 		// request configuration

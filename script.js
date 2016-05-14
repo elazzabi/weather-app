@@ -3,7 +3,7 @@
 	window.navigator.geolocation.getCurrentPosition(success, error);
 
 	function error() {
-		document.alert('It seems that access to your location is blocked. Please allow this page to access to your position and refresh the page!');
+		alert('It seems that access to your location is blocked. Please allow this page to access to your position and refresh the page!');
 	}
 
 	function success(position) {
@@ -30,7 +30,7 @@
 
 		// execute when data isn't ready
 		function dataLost() {
-			document.alert('There was an error when trying to get data, please try again!');
+			alert('There was an error when trying to get data, please try again!');
 		}
 	}
 

@@ -35,6 +35,20 @@
 	}
 
 	function displayContent(weather){
-		
+		var weatherParams = weather.weather[0];
+		var id = weatherParams.id;
+		var description = weatherParams.description;
+		var cityName = weather.name;
+		addElementToPage({element: "div", IdAttribute: "id", content: id});
+		addElementToPage({element: "div", IdAttribute: "description", content: description});
+		addElementToPage({element: "div", IdAttribute: "city-name", content: cityName});
+	}
+
+	function addElementToPage(params) {
+		var element = document.createElement(params.element);
+		element.setAttribute("id", params.IdAttribute);
+		var text = document.createTextNode(params.content);
+		element.appendChild(text);
+		document.body.appendChild(element);
 	}
 }());

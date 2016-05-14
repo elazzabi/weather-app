@@ -1,0 +1,21 @@
+body {
+	text-align: center;
+	font-family: Helvetica;
+}
+
+.weather-icon {
+	font-size: 150px;
+	padding-top: 40px;
+	margin-bottom: 20px;
+}
+
+#description {
+	font-size: 40px;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+#city-name {
+	font-size:20px;
+	font-weight: medium;
+}

@@ -30,6 +30,7 @@
 		// execute when data is ready
 		function dataReceived() {
 			var response = JSON.parse(request.responseText);
+			changeColors(response);
 			displayContent(response);
 		}
 
@@ -58,5 +59,15 @@
 			element.appendChild(text);
 		}
 		document.body.appendChild(element);
+	}
+
+	function changeColors(weather) {
+		var id = weather.weather[0].id;
+		addClassToBody(id);
+	}
+
+	function addClassToBody(weatherId) {
+		var id = Math.floor(weatherId / 100) * 100;
+		document.body.className += " _"+id;
 	}
 }());

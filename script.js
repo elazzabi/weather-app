@@ -58,7 +58,7 @@
 			var text = document.createTextNode(params.content);
 			element.appendChild(text);
 		}
-		document.body.appendChild(element);
+		document.getElementById("today-weather").appendChild(element);
 	}
 
 	function changeColors(weather) {

@@ -26,11 +26,11 @@ body {
 }
 
 .celisius::after { 
-    content: "°C";
+    content: 'C';
 }
 
 .fahrenheit::after { 
-    content: "°F";
+    content: 'F';
 }
 
 ._200 {

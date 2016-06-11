@@ -42,13 +42,17 @@
 
 	function displayContent(weather){
 		var weatherParams = weather.weather[0];
+		var temperature = weather.main.temp;
+		var temperature_celisius = Math.trunc(parseInt(temperature, 10) - 273.15);
+		var temperature_fahrenheit = Math.trunc(parseInt(temperature, 10) * 9/5 - 459.67);
 		var id = weatherParams.id;
 		var description = weatherParams.description;
 		var cityName = weather.name;
 
 		addElementToPage({element: "div", tagName: "class", attribute: "weather-icon wi wi-owm-" + id});
 		addElementToPage({element: "div", tagName: "id", attribute: "description", content: description});
-		addElementToPage({element: "div", tagName: "id", attribute: "city-name", content: cityName});	
+		addElementToPage({element: "div", tagName: "id", attribute: "temperature", content: temperature_celisius});
+		addElementToPage({element: "div", tagName: "id", attribute: "city-name", content: cityName});
 	}
 
 	function addElementToPage(params) {

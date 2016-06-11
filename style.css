@@ -25,6 +25,10 @@ body {
     font-size: 120px;
 }
 
+#temperature:hover {
+    cursor: pointer;
+}
+
 .celisius::after { 
     content: 'C';
 }

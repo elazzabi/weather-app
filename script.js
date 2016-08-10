@@ -34,7 +34,6 @@
 		function dataReceived() {
 			var response = JSON.parse(request.responseText);
 			document.getElementById('loading').style.visibility = 'hidden';
-			changeColors(response);
 			displayContent(response);
 		}
 
@@ -70,11 +69,6 @@
 			element.appendChild(text);
 		}
 		document.getElementById("today-weather").appendChild(element);
-	}
-
-	function changeColors(weather) {
-		var id = weather.weather[0].id;
-		addClassToBody(id);
 	}
 
 	function addClassToBody(weatherId) {

@@ -1,4 +1,11 @@
-(function () {
+require.config({
+	paths: {
+		ramda: "ramda.min",
+		jquery: "jquery.min"
+	}
+});
+
+require(['ramda', 'jquery'], function(_, $){
 	var temperature_celisius = 0;
 	var temperature_fahrenheit = 0;
 
@@ -35,6 +42,20 @@
 			var response = JSON.parse(request.responseText);
 			document.getElementById('loading').style.visibility = 'hidden';
 			displayContent(response);
+
+	  var handler = function() {
+	  	return;
+	  }
+
+		var snackbarContainer = document.querySelector('#snackbar');
+		var data = {
+		  message: 'There was an error getting the current weather.',
+		  timeout: 2000,
+		  actionHandler: handler,
+		  actionText: 'Refresh'
+		};
+
+    snackbarContainer.MaterialSnackbar.showSnackbar(data);
 		}
 
 		// execute when data isn't ready
@@ -92,4 +113,4 @@
 			}
 		}
 	}
-}());
+});

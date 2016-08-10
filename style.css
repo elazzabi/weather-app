@@ -23,7 +23,7 @@ body {
     margin-top: 60px;
 }
 
-#temperature{
+#temperature {
     font-weight: lighter;
     font-size: 120px;
     margin: 60 0 30 0;
@@ -39,4 +39,8 @@ body {
 
 .fahrenheit::after { 
     content: 'F';
+}
+
+#loading {
+    margin-top: 60px;
 }

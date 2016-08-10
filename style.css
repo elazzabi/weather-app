@@ -14,15 +14,19 @@ body {
 	font-size: 40px;
 	font-weight: bold;
 	text-transform: uppercase;
+    margin: 30 0 30 0;
+    line-height: 1.1;
 }
 
 #city-name {
 	font-size:20px;
 	font-weight: medium;
+    margin-top: 60px;
 }
 
 #temperature{
     font-size: 120px;
+    margin: 60 0 30 0;
 }
 
 #temperature:hover {

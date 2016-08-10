@@ -1,7 +1,7 @@
 body {
 	text-align: center;
-	font-family: Helvetica;
-	color: black;
+	font-family: 'Roboto', Helvetica;
+	color: #3F51B5;
 }
 
 .weather-icon {
@@ -12,19 +12,19 @@ body {
 
 #description {
 	font-size: 40px;
-	font-weight: bold;
-	text-transform: uppercase;
+	text-transform: capitalize;
     margin: 30 0 30 0;
     line-height: 1.1;
 }
 
 #city-name {
 	font-size:20px;
-	font-weight: medium;
+	font-weight: lighter;
     margin-top: 60px;
 }
 
 #temperature{
+    font-weight: lighter;
     font-size: 120px;
     margin: 60 0 30 0;
 }

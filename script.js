@@ -33,6 +33,7 @@
 		// execute when data is ready
 		function dataReceived() {
 			var response = JSON.parse(request.responseText);
+			document.getElementById('loading').style.visibility = 'hidden';
 			changeColors(response);
 			displayContent(response);
 		}

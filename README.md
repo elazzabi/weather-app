@@ -6,7 +6,7 @@
 
 This project is built as an assessment for [freecodecamp](https://freecodecamp.com)
 
-A live version of this project can be found here: [Wikipedia Search](http://elazzabi.com/projects/weather-app/)
+A live version of this project can be found here: [Weather App](http://elazzabi.com/projects/weather-app/)
 
 ## License
 

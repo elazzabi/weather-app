@@ -9,69 +9,33 @@ require(['ramda', 'jquery'], function(_, $){
 	var temperature_celisius = 0;
 	var temperature_fahrenheit = 0;
 
-	// Get user IP
-	var getIp = new XMLHttpRequest();
-	getIp.open('GET', 'http://ipinfo.io/json', true);
-	getIp.onload = success;
-	getIp.onerror = error;
-	getIp.send();
+	var getJSON = _.curry(function(callback, url) {
+		$.getJSON(url, callback);
+	});
 
-	function error() {
-		alert('Can not get your ip address');
-	}
+	var weatherRequestUrl = function(loc){
+		return 'http://api.openweathermap.org/data/2.5/weather?lat=' + loc[0] + '&lon=' + loc[1] + '&APPID=79565f7203b09794f3f049346c2cb9d4';
+	};
 
-	function success(position) {
-		var request = new XMLHttpRequest();
+	var splitLocation = function(loc) {
+		return loc.split(',');
+	};
 
-		// url to get data from the free API
-		var location = JSON.parse(getIp.responseText).loc.split(',');
-		var url = 'http://api.openweathermap.org/data/2.5/weather?lat=' +
-							location[0] +
-							'&lon=' +
-							location[1] +
-							'&APPID=79565f7203b09794f3f049346c2cb9d4';
+	var getLocation = _.compose(splitLocation, _.prop('loc'));
 
-		// request configuration
-		request.open('GET', url, true);
-		request.onload = dataReceived;
-		request.onerror = dataLost;
-		request.send();
-
-		// execute when data is ready
-		function dataReceived() {
-			var response = JSON.parse(request.responseText);
-			document.getElementById('loading').style.visibility = 'hidden';
-			displayContent(response);
-
-	  var handler = function() {
-	  	return;
-	  }
-
-		var snackbarContainer = document.querySelector('#snackbar');
-		var data = {
-		  message: 'There was an error getting the current weather.',
-		  timeout: 2000,
-		  actionHandler: handler,
-		  actionText: 'Refresh'
-		};
-
-    snackbarContainer.MaterialSnackbar.showSnackbar(data);
-		}
-
-		// execute when data isn't ready
-		function dataLost() {
-			alert('There was an error when trying to get data, please try again!');
-		}
-	}
+	var removeChild = _.curry(function(id, x) {
+		$(id).remove();
+		return x;
+	});
 
 	function displayContent(weather){
 		var temperature = weather.main.temp;
+		var cityName = weather.name;
 		temperature_celisius = Math.trunc(parseInt(temperature, 10) - 273.15);
 		temperature_fahrenheit = Math.trunc(parseInt(temperature, 10) * 9/5 - 459.67);
 		var weatherParams = weather.weather[0];
 		var id = weatherParams.id;
 		var description = weatherParams.description;
-		var cityName = weather.name;
 
 		addElementToPage({element: "div", tagName: "class", attribute: "weather-icon wi wi-owm-" + id});
 		addElementToPage({element: "div", tagName: "id", attribute: "description", content: description});
@@ -92,14 +56,9 @@ require(['ramda', 'jquery'], function(_, $){
 		document.getElementById("today-weather").appendChild(element);
 	}
 
-	function addClassToBody(weatherId) {
-		var id = Math.floor(weatherId / 100) * 100;
-		document.body.className += " _"+id;
-	}
-
 	function addClickHandlers(){
 		var elem = document.getElementById('temperature');
-		elem.onclick = function() {
+		$('#temperature').on('click', function() {
 			var elemClassList = elem.classList;
 			var isCelisius = elemClassList.contains('celisius');
 			if (isCelisius) {
@@ -111,6 +70,14 @@ require(['ramda', 'jquery'], function(_, $){
 				elemClassList.remove('fahrenheit');
 				elemClassList.add('celisius');
 			}
-		}
+		})
 	}
+
+	var handleWeatherRequest = _.compose(displayContent, removeChild("#loading"));
+
+	var handleIp = _.compose(getJSON(handleWeatherRequest), weatherRequestUrl, getLocation);
+
+	app = _.compose(getJSON(handleIp));
+
+	app('http://ipinfo.io/json');
 });
